@@ -19,13 +19,17 @@ bool check_rtol(const at::Tensor& diff, const std::vector<at::Tensor> inputs, fl
   return diff.abs().max().item<float>() <= threshold * maxValue;
 }
 
-bool almost_equal(const at::Tensor& a, const at::Tensor& b, float atol, float rtol) {
-  auto a_float = a.toType(at::kFloat);
-  auto b_float = b.toType(at::kFloat);
+bool almost_equal(
+    const at::Tensor& computed_tensor,
+    const at::Tensor& gt_tensor, // gt_tensor : Ground Truth Tensor
+    float atol,
+    float rtol) {
+  auto computed_tensor_float = computed_tensor.toType(at::kFloat);
+  auto gt_tensor_float = gt_tensor.toType(at::kFloat);
 
-  auto diff = a_float - b_float;
+  auto diff = computed_tensor_float - gt_tensor_float;
   auto result = diff.abs().max().item<float>();
-  auto threshold = atol + (rtol * b.abs().max().item<float>());
+  auto threshold = atol + (rtol * gt_tensor.abs().max().item<float>());
 
   torchtrt::logging::log(torchtrt::logging::Level::kDEBUG, std::string("Max Difference: ") + std::to_string(result));
   torchtrt::logging::log(

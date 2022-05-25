@@ -440,14 +440,18 @@ int main(int argc, char** argv) {
       }
 
       for (size_t i = 0; i < trt_results.size(); i++) {
+        std::ostringstream threshold_ss;
+        threshold_ss << "atol: " << atol_val << " rtol: " << rtol_val;
         if (!torchtrtc::accuracy::almost_equal(
                 jit_results[i], trt_results[i].reshape_as(jit_results[i]), atol_val, rtol_val)) {
-          std::ostringstream threshold_ss;
-          threshold_ss << "atol: " << atol_val << " rtol: " << rtol_val;
           torchtrt::logging::log(
               torchtrt::logging::Level::kWARNING,
               std::string("Maximum numerical deviation for output exceeds tolerance thresholds (") +
                   threshold_ss.str() + std::string(")"));
+        } else {
+          torchtrt::logging::log(
+              torchtrt::logging::Level::kDEBUG,
+              std::string("Maximum numerical deviation within threshold limits ") + threshold_ss.str());
         }
       }
     } else {
