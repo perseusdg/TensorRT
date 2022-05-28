@@ -14,13 +14,13 @@ cc_library(
             "lib/x64/cudart.lib",
         ],
         "//conditions:default": [
-            "lib64/libcudart.so",
+            "cuda/lib64/libcudart.so",
         ],
     }),
     hdrs = glob([
-        "include/**/*.h",
-        "include/**/*.hpp",
-        "include/**/*.inl",
+        "cuda/include/**/*.h",
+        "cuda/include/**/*.hpp",
+        "cuda/include/**/*.inl",
     ]),
     includes = ["include/"],
 )
@@ -32,7 +32,7 @@ cc_library(
             "bin/nvToolsExt64_1.dll",
         ],
         "//conditions:default": [
-            "lib64/libnvToolsExt.so.1",
+            "cuda/lib64/libnvToolsExt.so.1",
         ],
     }),
 )
@@ -44,13 +44,13 @@ cc_library(
             "bin/*.dll",
         ],
         "//conditions:default": glob([
-            "lib64/**/lib*.so",
+            "cuda/lib64/**/lib*.so",
         ]),
     }),
     hdrs = glob([
-        "include/**/*.h",
-        "include/**/*.hpp",
-        "include/**/*.inl",
+        "cuda/include/**/*.h",
+        "cuda/include/**/*.hpp",
+        "cuda/include/**/*.inl",
     ]),
     includes = ["include/"],
     linkopts = ["-Wl,-rpath,lib/"],
@@ -63,13 +63,13 @@ cc_library(
             "lib/x64/cublas.lib",
         ]),
         "//conditions:default": glob([
-            "lib64/**/*libcublas.so",
+            "cuda/lib64/**/*libcublas.so",
         ]),
     }),
     hdrs = glob([
-        "include/**/*cublas*.h",
-        "include/**/*.hpp",
-        "include/**/*.inl",
+        "cuda/include/**/*cublas*.h",
+        "cuda/include/**/*.hpp",
+        "cuda/include/**/*.inl",
     ]),
     includes = ["include/"],
     linkopts = ["-Wl,-rpath,lib/"],
