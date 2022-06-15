@@ -18,7 +18,7 @@ import warnings
 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
-CXX11_ABI = False
+CXX11_ABI = True
 
 JETPACK_VERSION = None
 
